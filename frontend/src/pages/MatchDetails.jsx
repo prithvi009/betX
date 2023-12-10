@@ -54,6 +54,7 @@ const matchDetails = () => {
           team2Name={matchData.event_details.eventName.split(' v ')[1]}
           matchOdds={matchData.matchOddsData[0].oddsData.runners}
           eventId={matchData.matchOddsData[0].exEventId}
+          eventName={matchData.matchOddsData[0].eventName}
           isTrue={false}
           isFancy={false}
         />
@@ -63,6 +64,7 @@ const matchDetails = () => {
           team2Name={matchData.event_details.eventName.split(' v ')[1]}
           matchOdds={matchData.bookmakersData[0].oddsData.runners}
           eventId={matchData.bookmakersData[0].exEventId}
+          eventName={matchData.bookmakersData[0].eventName}
           isTrue={true}
           isFancy={false}
         />

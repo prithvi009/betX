@@ -5,7 +5,7 @@ import {toast} from 'react-toastify'
 import { useDispatch } from 'react-redux'
 import { reduceWalletAmount } from '../state/actions/userSlice'
 
-const MatchBet = ({team1Name, team2Name, matchOdds, eventId, isTrue, betType}) => {
+const MatchBet = ({team1Name, team2Name, matchOdds, eventId, eventName, isTrue, betType}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {wallet_balance, id, password} = useSelector(state => state.user.currentUser) | null;
@@ -54,6 +54,7 @@ const MatchBet = ({team1Name, team2Name, matchOdds, eventId, isTrue, betType}) =
         body: JSON.stringify({
           event_id: eventId,
           bet_type: selectedOddsType,
+          event_name: eventName,
           rate: selectedRate,
           amount: betAmount,
         }),
