@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import Loader from '../pages/Loader'
 
 const PrivateRoute = () => {
-  const {id} = useSelector((state) => state.user.currentUser) | null;
+  const {id} = useSelector((state) => state.user.currentUser) ?? null;
 
 
   if (id === null) {

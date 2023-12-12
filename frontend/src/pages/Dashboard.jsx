@@ -149,7 +149,7 @@ const AdminDashboard = () => {
           <tr key={user.id} className="border-b">
             <td className="py-2 px-4 text-center">{user.id}</td>
             <td className="py-2 px-4 text-center">{user.password}</td>
-            <td className="py-2 px-4 text-center">{user.wallet_balance}</td>
+            <td className="py-2 px-4 text-center">Rs {user.wallet_balance}</td>
             <td className="py-2 px-4 text-center">
               <button
                 onClick={() => deleteUser(user.id)}

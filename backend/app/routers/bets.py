@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, Body, HTTPException
 from app.models import User, Bet, BetType, Bet_Pydantic
+from app.routers.cricket import get_cricket_match
 
 from app.utils.checks import is_user
 import asyncio
@@ -27,6 +28,7 @@ async def create_bet(
     user: User = Depends(is_user),
     event_id: str = Body(),
     event_name: str = Body(),
+    team_name: str = Body(),
     amount: int = Body(),
     bet_type: BetType = Body(),
     rate: float = Body(),
@@ -47,6 +49,7 @@ async def create_bet(
         bet = await Bet.create(
             event_id=event_id,
             event_name=event_name,
+            team_name=team_name,
             user_id=user.id,
             bet_type=bet_type,
             amount=amount,
@@ -56,6 +59,17 @@ async def create_bet(
         return bet
 
 # app/routers/bets.py
+
+def get_event_result(event_id: str):
+    """
+    Get the result of an event from the database.
+    """
+
+    match_data = get_cricket_match(event_id)
+
+    if match_data["event"]["status"] == "SUSPENDED":
+        return None
+        
 
 @router.get("/{bet_id}/status", response_model=str)
 async def get_bet_status(bet_id: int):

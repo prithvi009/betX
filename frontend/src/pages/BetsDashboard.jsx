@@ -36,11 +36,12 @@ const BetsDashboard = () => {
               key={i}
               className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300"
             >
-              <p className="text-xl font-semibold mb-2">Bet Type: {bet.bet_type}</p>
-              <p className="text-gray-600">Amount: Rs {bet.amount}</p>
-              <p className="text-gray-600">Rate: {bet.rate}</p>
-              <p className="text-green-600 font-bold">Win Amount: Rs {bet.rate * bet.amount}</p>
-              <p className="text-gray-600">Created At: {new Date(bet.created_at).toLocaleString()}</p>
+              <p className="text-xl font-semibold mb-2 text-gray-700">Bet Type: {bet.bet_type}</p>
+              <p className="text-md font-semibold p-1 text-gray-600">Team: {bet.team_name}</p>
+              <p className="text-gray-600 p-1">Amount: Rs {bet.amount}</p>
+              <p className="text-gray-600 p-1">Rate: {bet.rate}</p>
+              <p className="text-green-600 font-bold p-1">Win Amount: Rs {bet.rate * bet.amount}</p>
+              <p className="text-gray-600 p-1">Created At: {new Date(bet.created_at).toLocaleString()}</p>
             </div>
           ))}
         </div>

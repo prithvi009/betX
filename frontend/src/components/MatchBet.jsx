@@ -8,18 +8,25 @@ import { reduceWalletAmount } from '../state/actions/userSlice'
 const MatchBet = ({team1Name, team2Name, matchOdds, eventId, eventName, isTrue, betType}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {wallet_balance, id, password} = useSelector(state => state.user.currentUser) | null;
+  const {wallet_balance, id, password} = useSelector(state => state.user.currentUser) ?? null;
   
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedRate, setSelectedRate] = useState(null);
   const [betAmount, setBetAmount] = useState('');
   const [selectedRow, setSelectedRow] = useState(null);
   const [selectedOddsType, setSelectedOddsType] = useState(null);
+  const [teamName, setTeamName ] = useState('');
   const isMobile = window.innerWidth < 768;
 
   const handleDecimalClick = (rate, row, oddsType) => {
     setSelectedRate(rate);
     setSelectedRow(row);
+    if(row === 0){
+      setTeamName(team1Name);
+    }
+    else{
+      setTeamName(team2Name);
+    }
     setSelectedOddsType(oddsType);
     setShowDropdown(true);
   };
@@ -34,7 +41,8 @@ const MatchBet = ({team1Name, team2Name, matchOdds, eventId, eventName, isTrue, 
 
   const handlePlaceBet = async() => {
     try{
-      if(!id){
+      console.log(id, password, wallet_balance)
+      if(id === null){
         toast.error('Please login to place bet');
         navigate('/login');
         return;
@@ -55,6 +63,7 @@ const MatchBet = ({team1Name, team2Name, matchOdds, eventId, eventName, isTrue, 
           event_id: eventId,
           bet_type: selectedOddsType,
           event_name: eventName,
+          team_name: teamName,
           rate: selectedRate,
           amount: betAmount,
         }),

@@ -31,6 +31,7 @@ class User(models.Model):
 class BetType(Enum):
     BACK = "back"
     LAY = "lay"
+    FANCY="fancy"
 
 
 class Bet(models.Model):
@@ -41,29 +42,28 @@ class Bet(models.Model):
     event_id = fields.CharField(max_length=255)
     event_name = fields.CharField(max_length=255)
     user = fields.ForeignKeyField("models.User", related_name="bets")
+    team_name = fields.CharField(max_length=255)
     bet_type = fields.CharEnumField(BetType)
     amount = fields.FloatField()
     rate = fields.FloatField()
 
     created_at = fields.DatetimeField(auto_now=True)
     closed_at = fields.DatetimeField(null=True)
+    result = fields.CharField(max_length=255, null=True)
 
     @property
     def is_open(self):
         return self.closed_at is None
     
+    @property
+    def event_result(self):
+        if self.is_open:
+            return None
+        return {self.result, self.amount * self.rate}
+    
+    
 
-class Event(models.Model):
-    class Meta:
-        table = "events"
-
-    id = fields.IntField(pk=True)
-    event_id = fields.CharField(max_length=255)
-    result = fields.CharField(max_length=255, null=True)
-
-    bets: fields.ReverseRelation["Bet"]
 
 
 User_Pydantic = pydantic_model_creator(User)
 Bet_Pydantic = pydantic_model_creator(Bet, exclude_readonly=True)
-Event_Pydantic = pydantic_model_creator(Event, exclude_readonly=True)
