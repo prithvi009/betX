@@ -103,10 +103,11 @@ const FancyBody = ({matchOdds, fancyName, marketId, status}) => {
                     {
                     isMobile ?
                     (<div className='flex'>
-                        <div className={`cursor-pointer w-24 p-2 rounded-lg bg-blue-500 ${selectedRate === oddsGroup.price.back[0].price ? 'bg-yellow-400' : ''}`}
+                        <div className={`cursor-pointer w-24 p-2 rounded-lg bg-blue-500 font-bold ${selectedRate === oddsGroup.price.back[0].price ? 'bg-yellow-400' : ''}`}
                         onClick={() => handleDecimalClick(oddsGroup.price.back[0].price, rowIndex, 'back')}
                         >
                         {oddsGroup.price.back[0].price}
+                        <p className='font-normal text-sm'>{oddsGroup.price.back[0].size}</p>
                         </div>
                     </div>):
                     (
@@ -114,7 +115,7 @@ const FancyBody = ({matchOdds, fancyName, marketId, status}) => {
                         {oddsGroup.price.back.slice().reverse().map((backOdds, i) => (
                             <div
                             key={i}
-                            className={`cursor-pointer w-1/3 p-2 rounded-lg
+                            className={`cursor-pointer w-1/3 p-2 rounded-lg font-bold
                             ${
                                 selectedRow === rowIndex && selectedOddsType === 'back' && selectedRate === backOdds.price
                                 ? 'bg-yellow-300'
@@ -130,6 +131,7 @@ const FancyBody = ({matchOdds, fancyName, marketId, status}) => {
                             onClick={() => handleDecimalClick(backOdds.price, rowIndex, 'back')}
                             >
                                 {backOdds.price}
+                             <p className='text-sm font-normal'>{backOdds.size}</p>
                             </div>
                         ))}
                         </div>
@@ -142,17 +144,18 @@ const FancyBody = ({matchOdds, fancyName, marketId, status}) => {
                     {
                     isMobile ?
                     (<div className='flex'>
-                        <div className={`cursor-pointer w-24 p-2 rounded-lg bg-red-500 ${selectedRate === oddsGroup.price.lay[0].price ? 'bg-yellow-400' : ''}`}
+                        <div className={`cursor-pointer w-24 p-2 rounded-lg bg-red-500 font-bold ${selectedRate === oddsGroup.price.lay[0].price ? 'bg-yellow-400' : ''}`}
                         onClick={() => handleDecimalClick(oddsGroup.price.lay[0].price, rowIndex, 'lay')}
                         >
                         {oddsGroup.price.lay[0].price}
+                        <p className='font-normal text-sm'>{oddsGroup.price.lay[0].size}</p>
                         </div>
                     </div>):
                     (
                         <div className='flex gap-1'> 
                         {oddsGroup.price.lay.map((layOdds, i) => 
                         ( <div key={i} 
-                                className={`cursor-pointer w-1/3 p-2  rounded-lg  
+                                className={`cursor-pointer w-1/3 p-1  rounded-lg font-bold
                             ${ selectedRow === rowIndex && selectedOddsType === 'lay' && selectedRate === layOdds.price 
                                 ? 'bg-yellow-300'
                                 : i === 0
@@ -164,6 +167,7 @@ const FancyBody = ({matchOdds, fancyName, marketId, status}) => {
                                 : ``
                             }`}
                             onClick={() => handleDecimalClick(layOdds.price, rowIndex, 'lay')} > {layOdds.price} 
+                             <p className='text-sm font-normal'>{layOdds.size}</p>
                             </div> 
                         ))} 
                         </div>
